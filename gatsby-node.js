@@ -8,10 +8,12 @@
 const axios = require('axios');
 const crypto = require('crypto');
 const _ = require('lodash');
+const path = require(`path`);
 
 // exports.sourceNodes = async ({ boundActionCreators }) => {
 exports.sourceNodes = ({ boundActionCreators }) => {
     const { createNode } = boundActionCreators;
+
     return new Promise((resolve, reject) => {
         axios.get(`https://pwa.siplsolutions.com/wp/wp-json/wp/v2/gallery?&_embed`).then(res => {
 
@@ -119,6 +121,85 @@ exports.sourceNodes = ({ boundActionCreators }) => {
         }).catch(err => {
             console.log(err, "catch")
         });
-        
+
     });
 }
+
+exports.createPages = ({ graphql, boundActionCreators }) => {
+    const { createPage } = boundActionCreators
+    return new Promise((resolve, reject) => {
+        graphql(`
+        {
+            allPosts {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      `
+        ).then(result => {
+            result.data.allPosts.edges.forEach(({ node }) => {
+                createPage({
+                    path: `singlegallery/${node.id}`,
+                    component: path.resolve(`./src/pages/singlegallery.js`),
+                    context: {
+                        id: node.id
+                    },
+                })
+            })
+            resolve()
+        });
+        graphql(`
+        {
+            allPages {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      `
+        ).then(result => {
+            result.data.allPages.edges.forEach(({ node }) => {
+                createPage({
+                    path: `singlePage/${node.id}`,
+                    component: path.resolve(`./src/pages/singlePage.js`),
+                    context: {
+                        id: node.id
+                    },
+                })
+            })
+            resolve()
+        });
+
+        graphql(`
+        {
+          allService {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      `
+        ).then(result => {
+            result.data.allService.edges.forEach(({ node }) => {
+                createPage({
+                    path: `singlePost/${node.id}`,
+                    component: path.resolve(`./src/pages/singlePost.js`),
+                    context: {
+                        postId: node.id
+                    },
+                })
+            })
+            resolve()
+        })
+    }).catch(error => {
+        console.log(error)
+        reject()
+    })
+};

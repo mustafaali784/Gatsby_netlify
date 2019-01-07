@@ -4,12 +4,11 @@ export default class Posts extends React.Component {
     renderPosts = () => {
         return this.
             props.data.map((el, i) => {
-                console.log(el, "mustafa")
                 return (
-                    <Link to={`singlePost?id=${el.node.id}`}> <li className = 'site-link' key = {i}>{el.node.title}</li></Link>
+                    <Link to={`singlePost/${el.node.id}`}> <li className = 'site-link' key = {i}>{el.node.title}</li></Link>
                 )
             })
-    }
+    }   
 
     render() {
         return (

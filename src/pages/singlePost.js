@@ -4,26 +4,24 @@ import Layout from '../components/layout'
 import { graphql } from 'gatsby';
 
 const SinglePost = ({ data }) => {
-    return (
-        <Layout>
-        <SinglePostComponent data={data.allService.edges} />
-        </Layout>
-    )
+  console.log(data, "mustafa ali")
+  return (
+    <Layout>
+      <SinglePostComponent data={data.service} />
+    </Layout>
+  )
 }
 
 export default SinglePost;
 
-export const allService = graphql`
-{
-allService{
-  edges{
-    node{
+
+export const query = graphql`
+  query singlePost($postId: String!) {
+    service(id: { eq: $postId }) {
       id
       title
       image
       content
     }
   }
-}
-}
-`;
+`
