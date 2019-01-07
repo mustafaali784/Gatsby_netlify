@@ -30,6 +30,7 @@ const Header = ({ siteTitle }) => (
     </div>
   </div>
 )
+
 Header.propTypes = {
   siteTitle: PropTypes.string,
 }
