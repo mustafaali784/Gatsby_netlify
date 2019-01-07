@@ -16,7 +16,7 @@ const Posts = ({data}) => {
 export default Posts;
 
 
-export const allPosts = graphql`
+export const allService = graphql`
 {
 allService{
   edges{

@@ -125,32 +125,10 @@ exports.sourceNodes = ({ boundActionCreators }) => {
     });
 }
 
+
 exports.createPages = ({ graphql, boundActionCreators }) => {
     const { createPage } = boundActionCreators
     return new Promise((resolve, reject) => {
-        graphql(`
-        {
-            allPosts {
-            edges {
-              node {
-                id
-              }
-            }
-          }
-        }
-      `
-        ).then(result => {
-            result.data.allPosts.edges.forEach(({ node }) => {
-                createPage({
-                    path: `singlegallery/${node.id}`,
-                    component: path.resolve(`./src/pages/singlegallery.js`),
-                    context: {
-                        id: node.id
-                    },
-                })
-            })
-            resolve()
-        });
         graphql(`
         {
             allPages {
@@ -173,7 +151,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                 })
             })
             resolve()
-        });
+        })
 
         graphql(`
         {
@@ -193,6 +171,29 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                     component: path.resolve(`./src/pages/singlePost.js`),
                     context: {
                         postId: node.id
+                    },
+                })
+            })
+            resolve()
+        })
+
+        graphql(`
+        {
+            allPosts {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      `).then(result => {           
+            result.data.allPosts.edges.forEach(({ node }) => {
+                createPage({
+                    path: `singlegallery/${node.id}`,
+                    component: path.resolve(`./src/pages/singlegallery.js`),
+                    context: {
+                        id: node.id
                     },
                 })
             })
