@@ -2,10 +2,12 @@ import React from 'react';
 import SinglePageComponent from '../components/SinglePageComponent'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby';
+import SEO from '../components/seo';
 
 const SinglePage = ({ data }) => {
   return (
     <Layout>
+      <SEO title = 'gallery' />
       <SinglePageComponent data={data.pages} />
     </Layout>
   )

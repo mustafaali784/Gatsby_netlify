@@ -140,7 +140,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
       `).then(result => {
-          console.log(result , "from node");
+          console.log(result , "from Post");
           
             if (result.data) {
                 result.data.allService.edges.forEach(({ node }) => {
@@ -152,7 +152,7 @@ exports.createPages = ({ graphql, actions }) => {
                         },
                     })
                 })
-                // resolve()
+                resolve()
             }
         })
 
@@ -167,6 +167,8 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
       `).then(result => {
+        console.log(result , "from Gallery");
+
                 if (result.data) {
                     result.data.allPosts.edges.forEach(({ node }) => {
                         createPage({
@@ -177,7 +179,7 @@ exports.createPages = ({ graphql, actions }) => {
                             },
                         })
                     })
-                    // resolve()
+                    resolve()
                 }
             });
         graphql(`
@@ -191,6 +193,8 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
       `).then(result => {
+        console.log(result , "from Pages");
+
             if (result.data) {
                 result.data.allPages.edges.forEach(({ node }) => {
                     createPage({

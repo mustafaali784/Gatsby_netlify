@@ -2,10 +2,12 @@ import React from 'react';
 import SingleGalleryComponent from '../components/SingleGalleryComponent'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
+import SEO from '../components/seo';
 
 const SingleGallery = ({ data }) => {
   return (
     <Layout>
+      <SEO title = 'Gallery' />
       <SingleGalleryComponent data={data.posts} />
     </Layout>
   )
