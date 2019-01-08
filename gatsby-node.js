@@ -153,7 +153,7 @@ exports.createPages = ({ graphql, actions }) => {
                     })
                     resolve()
                 }
-            })
+            });
         graphql(`
         {
             allPages {
@@ -204,6 +204,7 @@ exports.createPages = ({ graphql, actions }) => {
                 resolve()
             }
         })
+        resolve();
     }).catch(error => {
         console.log(error)
         reject()
