@@ -131,6 +131,31 @@ exports.createPages = ({ graphql, actions }) => {
     return new Promise((resolve, reject) => {
         graphql(`
         {
+            allService {
+              edges {
+                node {
+                  id
+                }
+              }
+            }
+          }
+      `).then(result => {
+            if (result.data) {
+                result.data.allService.edges.forEach(({ node }) => {
+                    createPage({
+                        path: `singlePost/${node.id}`,
+                        component: path.resolve(`./src/pages/singlePost.js`),
+                        context: {
+                            postId: node.id
+                        },
+                    })
+                })
+                resolve()
+            }
+        })
+        
+        graphql(`
+        {
             allPosts {
               edges {
                 node {
@@ -180,30 +205,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
         });
 
-        graphql(`
-        {
-            allService {
-              edges {
-                node {
-                  id
-                }
-              }
-            }
-          }
-      `).then(result => {
-            if (result.data) {
-                result.data.allService.edges.forEach(({ node }) => {
-                    createPage({
-                        path: `singlePost/${node.id}`,
-                        component: path.resolve(`./src/pages/singlePost.js`),
-                        context: {
-                            postId: node.id
-                        },
-                    })
-                })
-                resolve()
-            }
-        })
+        
         resolve();
     }).catch(error => {
         console.log(error)
