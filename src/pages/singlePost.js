@@ -4,7 +4,6 @@ import Layout from '../components/layout'
 import { graphql } from 'gatsby';
 
 const SinglePost = ({ data }) => {
-  console.log(data, "mustafa ali")
   return (
     <Layout>
       <SinglePostComponent data={data.service} />
