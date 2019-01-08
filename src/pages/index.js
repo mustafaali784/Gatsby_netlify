@@ -18,9 +18,9 @@ const IndexPage = ({ data }) => {
     <div>
     <Layout className = 'sticky'/>
         <div className="image-container">
-          <img src={image}/>
+          <img src={image} style ={{position : "fixed", zIndex : "-1"}}/>
       </div>
-      <div>
+      <div style = {{backgroundColor : "white" , marginTop : 650}}> 
         <br />
         <div>
           {renderHTML(singleData.content)}
