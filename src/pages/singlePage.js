@@ -28,7 +28,7 @@ export default SinglePage;
 // `;
 
 export const query = graphql`
-query singlePage($id: String!) {
+query singlePage($id: String) {
   pages(id: { eq: $id }) {
     id
     title

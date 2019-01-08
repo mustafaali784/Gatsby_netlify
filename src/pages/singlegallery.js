@@ -27,9 +27,8 @@ export default SingleGallery;
 // }
 // }
 // `;
-
 export const query = graphql`
-query allPosts($id: String!) {
+query allPosts($id: String) {
   posts(id: { eq: $id }) {
     id
     title

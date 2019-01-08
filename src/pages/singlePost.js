@@ -16,7 +16,7 @@ export default SinglePost;
 
 
 export const query = graphql`
-  query singlePost($postId: String!) {
+  query singlePost($postId: String) {
     service(id: { eq: $postId }) {
       id
       title

@@ -1,23 +1,46 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Layout from '../components/layout';
-const IndexPage = () => {
+import renderHTML from 'react-render-html'
+import image from '../images/bg_world_bottom.png'
+
+
+
+const IndexPage = ({ data }) => {
+  const AllData = data.allPages.edges;
+  let singleData;
+  AllData.map(({ node }) => {
+    if (node.id == 954) {
+      singleData = node;
+    }
+  })
 
   return (
-    <Layout>
+    <div>
+    <Layout className = 'sticky'/>
+        <div className="image-container">
+          <img src={image}/>
+      </div>
       <div>
-        <center>
-          <h1>Welcome </h1>
-          <br /><br />
-          <div >
-            <ul>
-              <li><Link className="site-link" to="/gallery" >Show Gallery</Link></li>
-              <li><Link className="site-link" to="/pages">Show Pages</Link> </li>
-              <li><Link className="site-link" to="/posts">Show Posts</Link></li> </ul>
-          </div>
-        </center></div>
-    </Layout>
+        <br />
+        <div>
+          {renderHTML(singleData.content)}
+        </div>
+      </div>
+      </div>
   )
 }
 
 export default IndexPage;
+
+export const HomePage = graphql`
+{
+allPages{
+  edges{
+    node{
+      id
+      title
+      content
+    }
+  }
+}
+}`

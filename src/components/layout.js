@@ -5,7 +5,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import Header from './header'
 import './layout.css'
 
-const Layout = ({ children }) => (
+const Layout = (props) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -16,9 +16,12 @@ const Layout = ({ children }) => (
         }
       }
     `}
-    render={data => (
+    render={data => {
+      const cssClass = props.className;
+      const classCss = cssClass?cssClass:"";
+      return(
       <>
-        <Header siteTitle={''} />
+        <Header className = {classCss} siteTitle={''} />
         <div
           style={{
             margin: `0 auto`,
@@ -27,10 +30,10 @@ const Layout = ({ children }) => (
             paddingTop: 0,
           }}
         >
-          {children}
+          {props.children}
         </div>
       </>
-    )}
+    )}}
   />
 )
 

@@ -10,9 +10,10 @@ const crypto = require('crypto');
 const _ = require('lodash');
 const path = require(`path`);
 
-// exports.sourceNodes = async ({ boundActionCreators }) => {
-exports.sourceNodes = ({ boundActionCreators }) => {
-    const { createNode } = boundActionCreators;
+// exports.sourceNodes = async ({ actions }) => {
+   
+exports.sourceNodes = ({ actions }) => {
+    const { createNode } = actions;
 
     return new Promise((resolve, reject) => {
         axios.get(`https://pwa.siplsolutions.com/wp/wp-json/wp/v2/gallery?&_embed`).then(res => {
@@ -125,22 +126,43 @@ exports.sourceNodes = ({ boundActionCreators }) => {
     });
 }
 
-
-exports.createPages = ({ graphql, boundActionCreators }) => {
-    const { createPage } = boundActionCreators
+exports.createPages = ({ graphql, actions }) => {
+    const { createPage } = actions
     return new Promise((resolve, reject) => {
         graphql(`
         {
-            allPages {
-            edges {
-              node {
-                id
+            allPosts {
+              edges {
+                node {
+                  id
+                }
               }
             }
           }
-        }
-      `
-        ).then(result => {
+      `)
+      .then(result => {            
+            result.data.allPosts.edges.forEach(({ node }) => {
+                createPage({
+                    path: `singlegallery/${node.id}`,
+                    component: path.resolve(`./src/pages/singlegallery.js`),
+                    context: {
+                        id: node.id
+                    },
+                })
+            })
+            resolve()
+        })
+        graphql(`
+        {
+            allPages {
+              edges {
+                node {
+                  id
+                }
+              }
+            }
+          }
+      `).then(result => {
             result.data.allPages.edges.forEach(({ node }) => {
                 createPage({
                     path: `singlePage/${node.id}`,
@@ -149,51 +171,27 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                         id: node.id
                     },
                 })
+
             })
             resolve()
-        })
-
+        });
         graphql(`
         {
-          allService {
-            edges {
-              node {
-                id
+            allService {
+              edges {
+                node {
+                  id
+                }
               }
             }
           }
-        }
-      `
-        ).then(result => {
+      `).then(result => {
             result.data.allService.edges.forEach(({ node }) => {
                 createPage({
                     path: `singlePost/${node.id}`,
                     component: path.resolve(`./src/pages/singlePost.js`),
                     context: {
                         postId: node.id
-                    },
-                })
-            })
-            resolve()
-        })
-
-        graphql(`
-        {
-            allPosts {
-            edges {
-              node {
-                id
-              }
-            }
-          }
-        }
-      `).then(result => {           
-            result.data.allPosts.edges.forEach(({ node }) => {
-                createPage({
-                    path: `singlegallery/${node.id}`,
-                    component: path.resolve(`./src/pages/singlegallery.js`),
-                    context: {
-                        id: node.id
                     },
                 })
             })

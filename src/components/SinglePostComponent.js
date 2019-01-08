@@ -1,6 +1,6 @@
 import React from "react";
 import renderHTML from 'react-render-html';
-import { Link } from 'gatsby';
+
 
 export default class SinglePost extends React.Component {
     constructor(props) {
@@ -14,12 +14,10 @@ export default class SinglePost extends React.Component {
        
         return (
             <div>
-                <div><Link to="/posts" >Back To Posts</Link></div>
-                <Link to="/" >Home</Link>
+               
                 <center>
                     <h3>
                         Title : {this.props.data.title}
-                        mustafa
                     </h3>
                 </center>
                 <br />

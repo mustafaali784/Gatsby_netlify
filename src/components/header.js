@@ -1,34 +1,87 @@
 import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
+import { StaticQuery, graphql } from 'gatsby';
 import React from 'react'
 
-const Header = ({ siteTitle }) => (
-  <div
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
+const Header = (props) => (
+  <StaticQuery
+    query={graphql`
+  {
+    allService{
+      edges{
+        node{
+          id
+          title
+        }
+      }
+    }
+    allPages{
+      edges{
+        node{
+          id
+          title
+        }
+      }
+    }
+    allPosts{
+      edges{
+        node{
+          id
+          title
+        }
+      }
+    }
+    }`}
+    render={data => {
+      const gallery = data.allPosts.edges;
+      const posts = data.allService.edges
+      const pages = data.allPages.edges
+      return (
+        <div className={`navbar`}>
+        <Link to ='/'>Home</Link>
+        <div className="dropdown">
+            <button className="dropbtn">Pages
+    </button>
+            <div className="dropdown-content">
+            {
+                pages.map(({ node }) => {
+                  return (
+                    <Link to={`singlePage/${node.id}`}>{node.title}</Link>
+                  )
+                })
+              }
+            </div>
+          </div>
+          <div className="dropdown">
+            <button className="dropbtn">Posts
+    </button>
+            <div className="dropdown-content">
+              {
+                posts.map(({ node }) => {
+                  return (
+                    <Link to={`singlePost/${node.id}`}>{node.title}</Link>
+                  )
+                })
+              }
+            </div>
+          </div>
+          <div className="dropdown">
+            <button className="dropbtn">Gallery
+    </button>
+            <div className="dropdown-content">
+              {
+                gallery.map(({ node }) => {
+                  return (
+                    <Link to={`singlegallery/${node.id}`}>{node.title}</Link>
+                  )
+                })
+              }
+            </div>
+          </div>          
+        </div>
+      )
     }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </div>
+  />
 )
 
 Header.propTypes = {

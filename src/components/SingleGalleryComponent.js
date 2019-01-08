@@ -1,6 +1,5 @@
 import React from "react";
 import renderHTML from 'react-render-html';
-import {Link} from 'gatsby';
 
 export default class SingleGallery extends React.Component {
     
@@ -8,8 +7,7 @@ export default class SingleGallery extends React.Component {
     renderContent() {
         return (
             <div>
-                <div><Link to = "/gallery" >Back To Gallery</Link></div>
-                <Link to="/" >Home</Link>
+                
                <center>
                    <h3>
                     Title : {this.props.data.title}
