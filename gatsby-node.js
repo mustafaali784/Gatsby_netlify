@@ -26,7 +26,7 @@ exports.sourceNodes = ({ actions }) => {
                     id: `${i}`,
                     parent: `__SOURCE__`,
                     internal: {
-                        type: `Posts`, // name of the graphQL query --> allPosts {}
+                        type: `posts`, // name of the graphQL query --> allPosts {}
                         // contentDigest will be added just after
                         // but it is required
                     },
@@ -62,7 +62,7 @@ exports.sourceNodes = ({ actions }) => {
                     id: `${i}`,
                     parent: `__SOURCE__`,
                     internal: {
-                        type: `Service`, // name of the graphQL query --> allPosts {}
+                        type: `service`, // name of the graphQL query --> allPosts {}
                         // contentDigest will be added just after
                         // but it is required
                     },
@@ -97,7 +97,7 @@ exports.sourceNodes = ({ actions }) => {
                     id: `${i}`,
                     parent: `__SOURCE__`,
                     internal: {
-                        type: `Pages`, // name of the graphQL query --> allPages {}
+                        type: `pages`, // name of the graphQL query --> allPages {}
                         // contentDigest will be added just after
                         // but it is required
                     },
@@ -140,6 +140,8 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
       `).then(result => {
+          console.log(result , "from node");
+          
             if (result.data) {
                 result.data.allService.edges.forEach(({ node }) => {
                     createPage({
@@ -150,7 +152,7 @@ exports.createPages = ({ graphql, actions }) => {
                         },
                     })
                 })
-                resolve()
+                // resolve()
             }
         })
 
@@ -164,8 +166,7 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-      `)
-            .then(result => {
+      `).then(result => {
                 if (result.data) {
                     result.data.allPosts.edges.forEach(({ node }) => {
                         createPage({
@@ -176,7 +177,7 @@ exports.createPages = ({ graphql, actions }) => {
                             },
                         })
                     })
-                    resolve()
+                    // resolve()
                 }
             });
         graphql(`
@@ -201,9 +202,10 @@ exports.createPages = ({ graphql, actions }) => {
                     })
 
                 })
-                resolve()
+                // resolve()
             }
         });
+        resolve();
     }).catch(error => {
         console.log(error)
         reject()
