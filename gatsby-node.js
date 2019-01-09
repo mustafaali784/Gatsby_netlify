@@ -138,10 +138,22 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
+            allPosts {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+              allPages {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
           }
       `).then(result => {
-          console.log(result , "from Post");
-          
             if (result.data) {
                 result.data.allService.edges.forEach(({ node }) => {
                     createPage({
@@ -152,50 +164,15 @@ exports.createPages = ({ graphql, actions }) => {
                         },
                     })
                 })
-                resolve()
-            }
-        })
-
-        graphql(`
-        {
-            allPosts {
-              edges {
-                node {
-                  id
-                }
-              }
-            }
-          }
-      `).then(result => {
-        console.log(result , "from Gallery");
-
-                if (result.data) {
-                    result.data.allPosts.edges.forEach(({ node }) => {
-                        createPage({
-                            path: `singlegallery/${node.id}`,
-                            component: path.resolve(`./src/pages/singlegallery.js`),
-                            context: {
-                                id: node.id
-                            },
-                        })
+                result.data.allPosts.edges.forEach(({ node }) => {
+                    createPage({
+                        path: `singlegallery/${node.id}`,
+                        component: path.resolve(`./src/pages/singlegallery.js`),
+                        context: {
+                            id: node.id
+                        },
                     })
-                    resolve()
-                }
-            });
-        graphql(`
-        {
-            allPages {
-              edges {
-                node {
-                  id
-                }
-              }
-            }
-          }
-      `).then(result => {
-        console.log(result , "from Pages");
-
-            if (result.data) {
+                })
                 result.data.allPages.edges.forEach(({ node }) => {
                     createPage({
                         path: `singlePage/${node.id}`,
@@ -206,10 +183,64 @@ exports.createPages = ({ graphql, actions }) => {
                     })
 
                 })
-                // resolve()
+                resolve()
             }
-        });
-        resolve();
+        })
+
+        //     graphql(`
+        //     {
+        //         allPosts {
+        //           edges {
+        //             node {
+        //               id
+        //             }
+        //           }
+        //         }
+        //       }
+        //   `).then(result => {
+        //     console.log(result , "from Gallery");
+
+        //             if (result.data) {
+        //                 result.data.allPosts.edges.forEach(({ node }) => {
+        //                     createPage({
+        //                         path: `singlegallery/${node.id}`,
+        //                         component: path.resolve(`./src/pages/singlegallery.js`),
+        //                         context: {
+        //                             id: node.id
+        //                         },
+        //                     })
+        //                 })
+        //                 resolve()
+        //             }
+        //         });
+        //     graphql(`
+        //     {
+        //         allPages {
+        //           edges {
+        //             node {
+        //               id
+        //             }
+        //           }
+        //         }
+        //       }
+        //   `).then(result => {
+        //     console.log(result , "from Pages");
+
+        //         if (result.data) {
+        //             result.data.allPages.edges.forEach(({ node }) => {
+        //                 createPage({
+        //                     path: `singlePage/${node.id}`,
+        //                     component: path.resolve(`./src/pages/singlePage.js`),
+        //                     context: {
+        //                         id: node.id
+        //                     },
+        //                 })
+
+        //             })
+        //             // resolve()
+        //         }
+        //     });
+        //     resolve();
     }).catch(error => {
         console.log(error)
         reject()
