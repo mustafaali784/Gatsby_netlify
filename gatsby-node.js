@@ -187,6 +187,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
         })
 
+    }).catch(error => {
+        console.log(error)
+        reject()
+    })
+};
+
+
         //     graphql(`
         //     {
         //         allPosts {
@@ -241,8 +248,3 @@ exports.createPages = ({ graphql, actions }) => {
         //         }
         //     });
         //     resolve();
-    }).catch(error => {
-        console.log(error)
-        reject()
-    })
-};
