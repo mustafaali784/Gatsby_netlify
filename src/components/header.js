@@ -12,6 +12,7 @@ const Header = (props) => (
         node{
           id
           title
+          slug
         }
       }
     }
@@ -20,6 +21,7 @@ const Header = (props) => (
         node{
           id
           title
+          slug
         }
       }
     }
@@ -28,6 +30,7 @@ const Header = (props) => (
         node{
           id
           title
+          slug
         }
       }
     }
@@ -38,15 +41,15 @@ const Header = (props) => (
       const pages = data.allPages.edges
       return (
         <div className={`navbar`}>
-        <Link to ='/'>Home</Link>
-        <div className="dropdown">
+          <Link to='/'>Home</Link>
+          <div className="dropdown">
             <button className="dropbtn">Pages
     </button>
             <div className="dropdown-content">
-            {
+              {
                 pages.map(({ node }) => {
                   return (
-                    <Link to={`singlePage/${node.id}`}>{node.title}</Link>
+                    <Link to={`Page/${node.slug}`}>{node.title}</Link>
                   )
                 })
               }
@@ -59,7 +62,7 @@ const Header = (props) => (
               {
                 posts.map(({ node }) => {
                   return (
-                    <Link to={`singlePost/${node.id}`}>{node.title}</Link>
+                    <Link to={`Post/${node.slug}`}>{node.title}</Link>
                   )
                 })
               }
@@ -72,12 +75,12 @@ const Header = (props) => (
               {
                 gallery.map(({ node }) => {
                   return (
-                    <Link to={`singlegallery/${node.id}`}>{node.title}</Link>
+                    <Link to={`Gallery/${node.slug}`}>{node.title}</Link>
                   )
                 })
               }
             </div>
-          </div>          
+          </div>
         </div>
       )
     }}

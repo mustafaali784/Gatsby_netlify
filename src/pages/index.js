@@ -3,7 +3,7 @@ import Layout from '../components/layout';
 import renderHTML from 'react-render-html'
 import image from '../images/bg_world_bottom.png'
 import SEO from '../components/seo';
-
+import {graphql} from 'gatsby'
 
 
 const IndexPage = ({ data }) => {

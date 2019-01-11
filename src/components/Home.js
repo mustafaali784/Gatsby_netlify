@@ -5,7 +5,7 @@ export default class Home extends React.Component {
         return this.
             props.data.map((el, i) => {
                 return (
-                    <Link to={`singlegallery/${el.node.id}`}> <li className = 'site-link' key = {i}>{el.node.title}</li></Link>
+                    <Link to={`Gallery/${el.node.slug}`}> <li className = 'site-link' key = {i}>{el.node.title}</li></Link>
                 )
             })
     }

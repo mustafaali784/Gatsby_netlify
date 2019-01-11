@@ -7,7 +7,7 @@ import SEO from '../components/seo';
 const SinglePage = ({ data }) => {
   return (
     <Layout>
-      <SEO title = 'gallery' />
+      <SEO title = 'Pages' />
       <SinglePageComponent data={data.pages} />
     </Layout>
   )

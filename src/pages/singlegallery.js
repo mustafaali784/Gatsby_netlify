@@ -7,7 +7,7 @@ import SEO from '../components/seo';
 const SingleGallery = ({ data }) => {
   return (
     <Layout>
-      <SEO title = 'Gallery' />
+      <SEO title='Gallery' />
       <SingleGalleryComponent data={data.posts} />
     </Layout>
   )

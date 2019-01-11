@@ -4,7 +4,7 @@ export default class Pages extends React.Component {
     renderPages = () => {
         return this.props.data.map((el, i) => {
                 return (
-                    <Link to={`singlePage/${el.node.id}`}> <li className = 'site-link' key = {i}>{el.node.title}</li></Link>
+                    <Link to={`Page/${el.node.slug}`}> <li className = 'site-link' key = {i}>{el.node.title}</li></Link>
                 )
             })
     }
