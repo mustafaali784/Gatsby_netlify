@@ -159,10 +159,14 @@ exports.createPages = ({ graphql, actions }) => {
               }
           }
       `).then(result => {
-            if(result.data){
+            if (result.errors) {
+                console.log(result.errors, "error");
+                Promise.reject(result.errors)
+            }
+            if (result.data) {
+                console.log("Result", result.data);
                 if (result.data.allService) {
                     result.data.allService.edges.forEach(({ node }) => {
-                        console.log("         services", node);
                         createPage({
                             path: `Post/${node.slug}`,
                             component: path.resolve(`./src/pages/singlePost.js`),
@@ -174,7 +178,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 if (result.data.allPosts) {
                     result.data.allPosts.edges.forEach(({ node }) => {
-                        console.log("         posts", node);
+                        // console.log("         posts", node);
                         createPage({
                             path: `Gallery/${node.slug}`,
                             component: path.resolve(`./src/pages/singlegallery.js`),
@@ -186,7 +190,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 if (result.data.allPages) {
                     result.data.allPages.edges.forEach(({ node }) => {
-                        console.log("         pages", node);
+                        // console.log("         pages", node);
                         createPage({
                             path: `Page/${node.slug}`,
                             component: path.resolve(`./src/pages/singlePage.js`),
@@ -194,7 +198,7 @@ exports.createPages = ({ graphql, actions }) => {
                                 id: node.id
                             },
                         })
-    
+
                     })
                 }
             }
