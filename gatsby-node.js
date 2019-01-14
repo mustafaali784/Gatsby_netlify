@@ -141,7 +141,20 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
-           
+            allPosts {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+              allPages {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
           }
       `).then(result => {
             if (result.errors) {
@@ -150,31 +163,31 @@ exports.createPages = ({ graphql, actions }) => {
             }
             if (result.data) {
                 console.log("Result", result.data);
-                if (result.data.allService) {
-                    result.data.allService.edges.forEach(({ node }) => {
-                        createPage({
-                            path: `Post/${node.slug}`,
-                            component: path.resolve(`./src/pages/singlePost.js`),
-                            context: {
-                                postId: node.id
-                            },
-                        })  
-                        resolve()
-                    })
-                }
-                // if (result.data.allPosts) {
-                //     result.data.allPosts.edges.forEach(({ node }) => {
-                //         // console.log("         posts", node);
+                // if (result.data.allService) {
+                //     result.data.allService.edges.forEach(({ node }) => {
                 //         createPage({
-                //             path: `Gallery/${node.slug}`,
-                //             component: path.resolve(`./src/pages/singlegallery.js`),
+                //             path: `Post/${node.slug}`,
+                //             component: path.resolve(`./src/pages/singlePost.js`),
                 //             context: {
-                //                 id: node.id
+                //                 postId: node.id
                 //             },
                 //         })
                 //         resolve()
                 //     })
                 // }
+                if (result.data.allPosts) {
+                    result.data.allPosts.edges.forEach(({ node }) => {
+                        // console.log("         posts", node);
+                        createPage({
+                            path: `Gallery/${node.slug}`,
+                            component: path.resolve(`./src/pages/singlegallery.js`),
+                            context: {
+                                id: node.id
+                            },
+                        })
+                        resolve()
+                    })
+                }
                 // if (result.data.allPages) {
                 //     result.data.allPages.edges.forEach(({ node }) => {
                 //         // console.log("         pages", node);
@@ -190,7 +203,7 @@ exports.createPages = ({ graphql, actions }) => {
                 // }
             }
             // resolve();
-        
+
 
         })
 
