@@ -133,14 +133,6 @@ exports.createPages = ({ graphql, actions }) => {
     return new Promise((resolve, reject) => {
         graphql(`
         {
-            allService {
-              edges {
-                node {
-                  id
-                  slug
-                }
-              }
-            }
             allPosts {
                 edges {
                   node {
@@ -148,13 +140,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                 }
               }
-              allPages {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
+             
           }
       `).then(result => {
             if (result.errors) {
@@ -246,6 +232,23 @@ exports.createPages = ({ graphql, actions }) => {
 //       node {
 //         id
 //         slug
+//       }
+//     }
+//   }
+
+
+// allService {
+//     edges {
+//       node {
+//         id
+//         slug
+//       }
+//     }
+//   }
+//   allPages {
+//     edges {
+//       node {
+//         id
 //       }
 //     }
 //   }
