@@ -4,13 +4,19 @@ import Layout from '../components/layout'
 import { graphql } from 'gatsby'
 import SEO from '../components/seo';
 
-const SingleGallery = ({ data }) => {
-  return (
-    <Layout>
-      <SEO title='Gallery' />
-      <SingleGalleryComponent data={data.posts} />
-    </Layout>
-  )
+class SingleGallery extends React.Component {
+
+
+  render() {
+
+    return (
+      <Layout>
+        <SEO title='Gallery' />
+        <SingleGalleryComponent data={this.state.data.posts[0]} />
+      </Layout>
+    )
+
+  }
 }
 
 export default SingleGallery;

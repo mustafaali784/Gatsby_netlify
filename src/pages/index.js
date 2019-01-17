@@ -18,7 +18,7 @@ const IndexPage = ({ data }) => {
   return (
     <div>
       <SEO title = 'Home' />
-    <Layout className = 'sticky'/>
+    <Layout className = 'sticky'><div/></Layout>
         <div className="image-container">
           <img src={image} style ={{position : "fixed", zIndex : "-1"}}/>
       </div>

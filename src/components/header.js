@@ -49,7 +49,7 @@ const Header = (props) => (
               {
                 pages.map(({ node }) => {
                   return (
-                    <Link to={`Page/${node.slug}`}>{node.title}</Link>
+                    <Link to={`Page/${node.slug}`} key={node.id}>{node.title}</Link>
                   )
                 })
               }
@@ -62,7 +62,7 @@ const Header = (props) => (
               {
                 posts.map(({ node }) => {
                   return (
-                    <Link to={`Post/${node.slug}`}>{node.title}</Link>
+                    <Link to={`Post/${node.slug}`} key={node.id}>{node.title}</Link>
                   )
                 })
               }
@@ -75,7 +75,7 @@ const Header = (props) => (
               {
                 gallery.map(({ node }) => {
                   return (
-                    <Link to={`Gallery/${node.slug}`}>{node.title}</Link>
+                    <Link to={`Gallery/${node.slug}`} key={node.id}>{node.title}</Link>
                   )
                 })
               }

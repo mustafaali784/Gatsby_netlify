@@ -128,83 +128,174 @@ exports.sourceNodes = ({ actions }) => {
 }
 
 
+// exports.createPages = ({ graphql, actions }) => {
+//     const { createPage } = actions
+//     return new Promise((resolve, reject) => {
+//         graphql(`
+//         {
+//             allService {
+//               edges {
+//                 node {
+//                   id
+//                   slug
+//                 }
+//               }
+//             }
+//               allPages {
+//                 edges {
+//                   node {
+//                     id
+//                   }
+//                 }
+//               }
+//           }
+//       `).then(result => {
+//             if (result.errors) {
+//                 console.log(result.errors, "error");
+//                 Promise.reject(result.errors)
+//             }
+//             if (result.data) {
+//                 console.log("Result", result.data);
+//                 if (result.data.allService) {
+//                     result.data.allService.edges.forEach(({ node }) => {
+//                         createPage({
+//                             path: `Post/${node.slug}`,
+//                             component: path.resolve(`./src/pages/singlePost.js`),
+//                             context: {
+//                                 postId: node.id
+//                             },
+//                         })
+//                         resolve()
+//                     })
+//                 }
+//                 // if (result.data.allPosts) {
+//                 //     result.data.allPosts.edges.forEach(({ node }) => {
+//                 //         // console.log("         posts", node);
+//                 //         createPage({
+//                 //             path: `Gallery/${node.slug}`,
+//                 //             component: path.resolve(`./src/pages/singlegallery.js`),
+//                 //             context: {
+//                 //                 id: node.id
+//                 //             },
+//                 //         })
+//                 //         resolve()
+//                 //     })
+//                 // }
+//                 if (result.data.allPages) {
+//                     result.data.allPages.edges.forEach(({ node }) => {
+//                         // console.log("         pages", node);
+//                         createPage({
+//                             path: `Page/${node.slug}`,
+//                             component: path.resolve(`./src/pages/singlePage.js`),
+//                             context: {
+//                                 id: node.id
+//                             },
+//                         })
+//                         resolve()
+//                     })
+//                 }
+//             }
+//             // resolve();
+
+
+//         })
+
+//     }).catch(error => {
+//         console.log(error)
+//         reject()
+//     })
+// };
+
 exports.createPages = ({ graphql, actions }) => {
-    const { createPage } = actions
-    return new Promise((resolve, reject) => {
-        graphql(`
-        {
-            allService {
-              edges {
-                node {
-                  id
-                  slug
-                }
-              }
-            }
-              allPages {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-          }
-      `).then(result => {
-            if (result.errors) {
-                console.log(result.errors, "error");
-                Promise.reject(result.errors)
-            }
-            if (result.data) {
-                console.log("Result", result.data);
-                if (result.data.allService) {
-                    result.data.allService.edges.forEach(({ node }) => {
-                        createPage({
-                            path: `Post/${node.slug}`,
-                            component: path.resolve(`./src/pages/singlePost.js`),
-                            context: {
-                                postId: node.id
-                            },
-                        })
-                        resolve()
-                    })
-                }
-                // if (result.data.allPosts) {
-                //     result.data.allPosts.edges.forEach(({ node }) => {
-                //         // console.log("         posts", node);
-                //         createPage({
-                //             path: `Gallery/${node.slug}`,
-                //             component: path.resolve(`./src/pages/singlegallery.js`),
-                //             context: {
-                //                 id: node.id
-                //             },
-                //         })
-                //         resolve()
-                //     })
-                // }
-                if (result.data.allPages) {
-                    result.data.allPages.edges.forEach(({ node }) => {
-                        // console.log("         pages", node);
-                        createPage({
-                            path: `Page/${node.slug}`,
-                            component: path.resolve(`./src/pages/singlePage.js`),
-                            context: {
-                                id: node.id
-                            },
-                        })
-                        resolve()
-                    })
-                }
-            }
-            // resolve();
+    const { createPage } = actions;
+    const PagesPath = path.resolve('src/pages/singlePage.js');
+    const PostsPath = path.resolve('src/pages/singlePost.js');
+    const GalleryPath = path.resolve('src/pages/singlegallery.js');
 
 
+    const posts = graphql(`
+                {
+                    allService {
+                      edges {
+                        node {
+                          id
+                          slug
+                        }
+                      }
+                    }
+                }`
+    ).then(result => {
+        console.log("Services", result)
+        if (result.errors) {
+            Promise.reject(result.errors)
+        }
+        result.data.allService.edges.forEach(({ node }) => {
+            createPage({
+                path: `Post/${node.slug}`,
+                component: PostsPath,
+                context: {
+                    postId: node.id
+                },
+            })
         })
-
-    }).catch(error => {
-        console.log(error)
-        reject()
     })
-};
+
+    const gallery = graphql(`
+        {
+             allPosts {
+                 edges {
+                   node {
+                     id
+                     slug
+                   }
+                 }
+               }
+            }
+        `).then(result => {
+        console.log("posts", result)
+        if (result.errors) {
+            Promise.reject(result.errors)
+        }
+
+        result.data.allPosts.edges.forEach(({ node }) => {
+            createPage({
+                path: `Gallery/${node.slug}`,
+                component: GalleryPath,
+                context: {
+                    id: node.id
+                },
+            })
+        })
+    })
+
+    // const page = graphql(`
+    // {
+    //     allPages {
+    //         edges {
+    //             node {
+    //                 id
+    //                 slug
+    //             }
+    //          }
+    //       }
+    //  }`
+    // ).then(result => {
+    //     console.log("pages", result)
+    //     if (result.errors) {
+    //         Promise.reject(result.errors)
+    //     }
+    //     result.data.allPages.edges.forEach(({ node }) => {
+    //         createPage({
+    //             path: `Page/${node.slug}`,
+    //             path: PagesPath,
+    //             context: {
+    //                 id: node.id
+    //             }
+    //         })
+    //     })
+    // })
+    return Promise.all([gallery, posts]);
+}
 
 // exports.onCreatePage = ({ page }) => {
 //     console.log(page, "Page");
