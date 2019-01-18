@@ -13,6 +13,22 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: "gatsby-source-wordpress",
+      options: {
+        baseUrl: "pwa.siplsolutions.com/wp",
+        protocol: "https",
+        hostingWPCOM: false,
+        useACF: true,
+        verboseOutput: false,
+        includedRoutes: [
+
+          "**/*/*/service",
+          "**/*/*/pages",
+          "**/*/*/gallery",
+        ],
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -21,7 +37,7 @@ module.exports = {
         path: `${__dirname}/src/pages`,
       },
     },
-    
+
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {

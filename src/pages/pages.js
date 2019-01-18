@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 const pages = ({data}) => {    
     return(
         <Layout>
-            <Pages data={data.allPages.edges} />
+            <Pages data={data.allWordpressPage.edges} />
         </Layout>
     )
 }
@@ -14,7 +14,7 @@ export default pages;
 
 export const allPosts = graphql`
 {
-allPages{
+  allWordpressPage{
   edges{
     node{
       id

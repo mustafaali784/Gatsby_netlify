@@ -8,7 +8,7 @@ const SinglePost = ({ data }) => {
   return (
     <Layout>
       <SEO title = 'Posts'/>
-      <SinglePostComponent data={data.service} />
+      <SinglePostComponent data={data.wordpressWpService} />
     </Layout>
   )
 }
@@ -18,10 +18,9 @@ export default SinglePost;
 
 export const query = graphql`
   query singlePost($postId: String) {
-    service(id: { eq: $postId }) {
+    wordpressWpService(id: { eq: $postId }) {
       id
       title
-      image
       content
     }
   }

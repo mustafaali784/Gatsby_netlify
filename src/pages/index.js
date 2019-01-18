@@ -7,10 +7,10 @@ import {graphql} from 'gatsby'
 
 
 const IndexPage = ({ data }) => {
-  const AllData = data.allPages.edges;
+  const AllData = data.allWordpressPage.edges;
   let singleData;
   AllData.map(({ node }) => {
-    if (node.id == 954) {
+    if (node.id == "9aefda7f-5939-5281-a6fb-b39adaa45305") {
       singleData = node;
     }
   })
@@ -36,7 +36,7 @@ export default IndexPage;
 
 export const HomePage = graphql`
 {
-allPages{
+  allWordpressPage{
   edges{
     node{
       id

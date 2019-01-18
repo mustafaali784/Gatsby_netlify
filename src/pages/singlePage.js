@@ -8,7 +8,7 @@ const SinglePage = ({ data }) => {
   return (
     <Layout>
       <SEO title = 'Pages' />
-      <SinglePageComponent data={data.pages} />
+      <SinglePageComponent data={data.wordpressPage} />
     </Layout>
   )
 }
@@ -31,7 +31,7 @@ export default SinglePage;
 
 export const query = graphql`
 query singlePage($id: String) {
-  pages(id: { eq: $id }) {
+  wordpressPage(id: { eq: $id }) {
     id
     title
     content

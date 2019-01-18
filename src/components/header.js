@@ -7,7 +7,7 @@ const Header = (props) => (
   <StaticQuery
     query={graphql`
   {
-    allService{
+    allWordpressWpGallery{
       edges{
         node{
           id
@@ -16,7 +16,7 @@ const Header = (props) => (
         }
       }
     }
-    allPages{
+    allWordpressPage{
       edges{
         node{
           id
@@ -25,7 +25,7 @@ const Header = (props) => (
         }
       }
     }
-    allPosts{
+    allWordpressWpService{
       edges{
         node{
           id
@@ -36,9 +36,9 @@ const Header = (props) => (
     }
     }`}
     render={data => {
-      const gallery = data.allPosts.edges;
-      const posts = data.allService.edges
-      const pages = data.allPages.edges
+      const gallery = data.allWordpressWpGallery.edges;
+      const posts = data.allWordpressWpService.edges
+      const pages = data.allWordpressPage.edges
       return (
         <div className={`navbar`}>
           <Link to='/'>Home</Link>

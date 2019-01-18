@@ -8,7 +8,7 @@ const SingleGallery = ({ data }) => {
   return (
     <Layout>
       <SEO title='Gallery' />
-      <SingleGalleryComponent data={data.posts} />
+      <SingleGalleryComponent data={data.wordpressWpGallery} />
     </Layout>
   )
 }
@@ -31,10 +31,9 @@ export default SingleGallery;
 // `;
 export const query = graphql`
 query allPosts($id: String) {
-  posts(id: { eq: $id }) {
+  wordpressWpGallery(id: { eq: $id }) {
     id
     title
-    image
     content
   }
 }

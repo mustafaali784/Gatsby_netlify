@@ -7,7 +7,7 @@ const Posts = ({data}) => {
  
     return(
         <Layout>
-            <AllPosts data={data.allService.edges} />
+            <AllPosts data={data.allWordpressWpService.edges} />
         </Layout>
     )
 }
@@ -16,7 +16,7 @@ export default Posts;
 
 export const allService = graphql`
 {
-allService{
+  allWordpressWpService{
   edges{
     node{
       id
