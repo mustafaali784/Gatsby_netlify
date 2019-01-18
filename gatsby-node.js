@@ -96,9 +96,10 @@ exports.createPages = ({ graphql, actions }) => {
                     // post node. We'll just use the WordPress Slug for the slug.
                     // The Post ID is prefixed with 'POST_'
                     _.each(result.data.allWordpressWpService.edges, edge => {
+                        console.log(edge.node)
                         createPage({
                             path: `Post/${edge.node.slug}/`,
-                            component: slash(PostsPath),
+                            component: PostsPath,
                             context: {
                                 id: edge.node.id,
                             },

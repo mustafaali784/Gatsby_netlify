@@ -5,6 +5,7 @@ import { graphql } from 'gatsby';
 import SEO from '../components/seo';
 
 const SinglePost = ({ data }) => {
+
   return (
     <Layout>
       <SEO title = 'Posts'/>
@@ -17,8 +18,8 @@ export default SinglePost;
 
 
 export const query = graphql`
-  query singlePost($postId: String) {
-    wordpressWpService(id: { eq: $postId }) {
+  query singlePost($id: String) {
+    wordpressWpService(id: { eq: $id }) {
       id
       title
       content

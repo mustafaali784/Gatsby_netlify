@@ -5,6 +5,7 @@ import { graphql } from 'gatsby'
 import SEO from '../components/seo';
 
 const SingleGallery = ({ data }) => {
+  console.log(data  , "gallery")
   return (
     <Layout>
       <SEO title='Gallery' />
