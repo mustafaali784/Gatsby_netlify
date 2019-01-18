@@ -1,6 +1,6 @@
 import React from "react";
 import renderHTML from 'react-render-html';
-
+import demo from '../images/demo.jpg'
 
 export default class SinglePost extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class SinglePost extends React.Component {
                 <div>
                     {renderHTML(this.props.data.content)}
                 </div>
-                <img className="img-responsive" style={{ height: '400px', width: "400px" }} src={this.props.data.image} />
+                <img className="img-responsive" style={{ height: '400px', width: "400px" }} src={demo} />
             </div>
 
         )

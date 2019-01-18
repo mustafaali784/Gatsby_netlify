@@ -1,4 +1,5 @@
 import React from "react";
+import demo from '../images/demo.jpg'
 import renderHTML from 'react-render-html';
 
 export default class SingleGallery extends React.Component {
@@ -21,7 +22,7 @@ export default class SingleGallery extends React.Component {
                 <div>
                     {renderHTML(this.props.data.content)}
                 </div>
-                <img className="img-responsive" style = {{height : '400px' , width : "400px"}} src = {this.props.data.image} />
+                <img className="img-responsive" style = {{height : '400px' , width : "400px"}} src = {demo} />
             </div>
 
         )
